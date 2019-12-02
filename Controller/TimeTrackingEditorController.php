@@ -156,7 +156,8 @@ class TimeTrackingEditorController extends BaseController
         $values = array('project_id' => $project['id'],
                         'task_id' => $this->request->getIntegerParam('task_id'),
                       );
-          $this->setDefaultBillable($values);
+        $this->setDefaultValues($values);
+        $values = $this->formatValueDates($values);
       }
 
 
@@ -201,7 +202,7 @@ class TimeTrackingEditorController extends BaseController
 
        $values = $this->subtaskTimeTrackingEditModel->getById($this->request->getIntegerParam('id'));
 
-       $values = $this->dateParser->format($values, array('start'), $this->dateParser->getUserDateFormat());
+       $values = $this->formatValueDates($values);
        $values['subtask'] = $values['subtask_title'];
        $values['opposite_subtask_id']  = $values['subtask_id'];
 
@@ -376,9 +377,31 @@ class TimeTrackingEditorController extends BaseController
         return $this->response->redirect($this->helper->url->to('TaskViewController', 'timetracking', array('project_id' => $project['id'], 'task_id' => $values['task_id'])), true);
     }
 
+    private function setDefaultValues(&$values)
+    {
+        $this->setDefaultBillable($values);
+        $this->setStartDateNow($values);
+    }
+
     private function setDefaultBillable(&$values)
     {
         $values['is_billable'] = true;
     }
+
+    private function setStartDateNow(&$values)
+    {
+        $values['start'] = date('Y-m-d');
+    }
+
+    /**
+     * @param array $values
+     * @return array
+     */
+    protected function formatValueDates(array $values): array
+    {
+        $values = $this->dateParser->format($values, array('start'), $this->dateParser->getUserDateFormat());
+        return $values;
+    }
+
 
 }
