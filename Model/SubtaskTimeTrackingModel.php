@@ -129,5 +129,32 @@ class SubtaskTimeTrackingModel extends \Kanboard\Model\SubtaskTimeTrackingModel
                   ->findOne();
    }
 
+    /**
+     * Update task time tracking based on subtasks time tracking
+     *
+     * @access public
+     * @param  integer   $task_id    Task id
+     * @return bool
+     */
+    public function updateTaskTimeTracking($task_id)
+    {
+        $values = $this->calculateSubtaskTime($task_id);
 
+        $higherEstimate = $this->keepHigherEstimateFromTask( $task_id, $values['time_estimated'] );
+        $values['time_estimated'] = $higherEstimate;
+
+        return $this->db
+            ->table(TaskModel::TABLE)
+            ->eq('id', $task_id)
+            ->update($values);
+    }
+
+    protected function keepHigherEstimateFromTask( $task_id, $subtaskEstimateSum) {
+        $taskEstimate = $this->db
+            ->table(TaskModel::TABLE)
+            ->eq('id', $task_id)
+            ->findOneColumn('time_estimated');
+
+        return max($taskEstimate, $subtaskEstimateSum);
+    }
 }
