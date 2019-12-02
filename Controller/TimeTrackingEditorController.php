@@ -154,9 +154,11 @@ class TimeTrackingEditorController extends BaseController
 
       if (empty($values)) {
         $values = array('project_id' => $project['id'],
-                        'task_id' => $this->request->getIntegerParam('task_id')
+                        'task_id' => $this->request->getIntegerParam('task_id'),
                       );
+          $this->setDefaultBillable($values);
       }
+
 
       if ($this->request->getIntegerParam('subtask_id')) {
           $values['opposite_subtask_id'] = $this->request->getIntegerParam('subtask_id');
@@ -372,6 +374,11 @@ class TimeTrackingEditorController extends BaseController
         }
 
         return $this->response->redirect($this->helper->url->to('TaskViewController', 'timetracking', array('project_id' => $project['id'], 'task_id' => $values['task_id'])), true);
+    }
+
+    private function setDefaultBillable(&$values)
+    {
+        $values['is_billable'] = true;
     }
 
 }
