@@ -1,3 +1,9 @@
 .right {
   text-align: right;
 }
+
+:not(.timetracking) > #form-time_spent {
+    border-color: grey;
+    background-color: lightgrey;
+    pointer-events:none;
+}
