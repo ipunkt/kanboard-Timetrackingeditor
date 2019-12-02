@@ -76,6 +76,7 @@ class SubtaskTimeTrackingExport extends Base
             e('Color Id'),
             e('Username'),
             e('User Fullname'),
+            e('Reference'),
         );
     }
 
@@ -103,7 +104,8 @@ class SubtaskTimeTrackingExport extends Base
              'text',
              'num',
              'text',
-             'text'
+             'text',
+             'text',
          );
      }
 
@@ -133,6 +135,7 @@ class SubtaskTimeTrackingExport extends Base
         $values[] = $subtasktt['color_id'];
         $values[] = $subtasktt['username'];
         $values[] = $subtasktt['user_fullname'];
+        $values[] = $subtasktt['reference'];
         return $values;
     }
 
@@ -204,6 +207,7 @@ class SubtaskTimeTrackingExport extends Base
                                   ProjectModel::TABLE.'.name AS project_name',
                                   TaskModel::TABLE.'.title AS task_title',
                                   TaskModel::TABLE.'.color_id',
+                                  TaskModel::TABLE.'.reference as reference',
                                   UserModel::TABLE.'.username',
                                   UserModel::TABLE.'.name AS user_fullname'
                               )
