@@ -13,6 +13,10 @@ class SubtaskPermissionHelper extends Base
     {
         if( $this->helper->user->isCurrentUser($record['user_id']) )
             return true;
+
+        if( $this->userModel->isAdmin( $this->userSession->getId() ) )
+            return true;
+
         if( $this->helper->projectRole->getProjectUserRole( $record['project_id'] ) === 'project-manager' )
             return true;
 
