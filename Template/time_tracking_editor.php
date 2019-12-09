@@ -37,7 +37,7 @@
             <td><?= $this->dt->datetime($record['end']) ?></td>
             <td class="right"><?= n($record['time_spent']).' '.t('hours') ?></td>
             <td>
-		<?php if ($this->subtask->canEdit($record)) { ?>
+		<?php if ($this->subtaskPermission->canEdit($record)) { ?>
                 <?= $this->render('timetrackingeditor:menu', array(
                     'task' => $task,
                     'subtask_id' => $record['subtask_id'],

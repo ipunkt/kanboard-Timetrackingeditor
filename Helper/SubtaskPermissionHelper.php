@@ -7,9 +7,9 @@ use Kanboard\Core\Base;
 /**
  * Class SubtaskHelper
  */
-class SubtaskHelper extends Base
+class SubtaskPermissionHelper extends Base
 {
-public function canEdit($record)
+    public function canEdit($record)
     {
         if( $this->helper->user->isCurrentUser($record['user_id']) )
             return true;
