@@ -13,8 +13,7 @@ class SubtaskPermissionHelper extends Base
     {
         if( $this->helper->user->isCurrentUser($record['user_id']) )
             return true;
-
-        if( $this->helper->projectRole->checkProjectAccess('TaskViewController', 'edit', $record['project_id']) )
+        if( $this->helper->projectRole->getProjectUserRole( $record['project_id'] ) === 'project-manager' )
             return true;
 
         return false;
