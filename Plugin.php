@@ -4,7 +4,6 @@ namespace Kanboard\Plugin\Timetrackingeditor;
 
 use Kanboard\Core\Translator;
 use Kanboard\Core\Plugin\Base;
-use Kanboard\Plugin\Timetrackingeditor\Helper\SubtaskHelper;
 use Kanboard\Plugin\Timetrackingeditor\Model\SubtaskTimeTrackingModel;
 use Kanboard\Plugin\Timetrackingeditor\Console\AllSubtaskTimeTrackingExportCommand;
 
@@ -16,7 +15,7 @@ class Plugin extends Base
       $this->template->setTemplateOverride('task/time_tracking_details', 'timetrackingeditor:time_tracking_editor');
       $this->template->setTemplateOverride('subtask/table', 'timetrackingeditor:subtask/table');
 
-      # $this->helper->register("subtask", "Kanboard\Plugin\Timetrackingeditor\Helper\SubtaskHelper");
+      $this->helper->register("subtask", "Kanboard\Plugin\Timetrackingeditor\Helper\SubtaskHelper");
 
       $this->container["cli"]->add(new AllSubtaskTimeTrackingExportCommand($this->container));
     }
@@ -56,6 +55,9 @@ class Plugin extends Base
         'Plugin\Timetrackingeditor\Formatter' => array(
           'SubtaskAutoCompleteFormatter'
         ),
+          'Plugin\Timetrackingeditor\Helper' => array(
+              'SubtaskHelper'
+          ),
       );
     }
 
