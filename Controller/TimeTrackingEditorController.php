@@ -416,11 +416,10 @@ class TimeTrackingEditorController extends BaseController
         $hasStartTime = array_key_exists('start', $values);
         if(!$hasStartTime)
             return;
-        $time = strtotime($values['start']);
-        $oldtime = strtotime($oldtimetracking['start']);
+        $valuesTimestamp = strtotime($values['start']);
 
-        $newDay = date('z', $time);
-        $oldDay = date('z', $time);
+        $newDay = date('z', $valuesTimestamp);
+        $oldDay = date('z', $oldtimetracking['start']);
 
         $sameDay = ($newDay === $oldDay);
         if($sameDay)
