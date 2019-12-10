@@ -128,7 +128,8 @@ class SubtaskTimeTrackingEditModel extends Base
      */
     public function prepare(array &$values)
     {
-        if ($this->userSession->isLogged()) {
+        $hasUserId = array_key_exists('user_id', $values);
+        if ($this->userSession->isLogged() && !$hasUserId) {
             $values['user_id'] = $this->userSession->getId();
         }
 

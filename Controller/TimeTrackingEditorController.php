@@ -233,6 +233,9 @@ class TimeTrackingEditorController extends BaseController
 
       list($valid, $errors) = $this->subtaskTimeTrackingValidator->validateModification($values);
 
+      $this->preserveUserId($values, $oldtimetracking);
+      $this->preserveStartTime($values, $oldtimetracking);
+
       if ($valid && $this->subtaskTimeTrackingEditModel->update($values)) {
         $this->flash->success(t('Timetracking entry updated successfully.'));
         $this->updateTimespent($values['task_id'], $oldtimetracking['subtask_id'], $oldtimetracking['time_spent'] * -1);
@@ -401,6 +404,27 @@ class TimeTrackingEditorController extends BaseController
     {
         $values = $this->dateParser->format($values, array('start'), $this->dateParser->getUserDateFormat());
         return $values;
+    }
+
+    protected function preserveUserId(&$values, $oldtimetracking)
+    {
+        $values['user_id'] = (int)$oldtimetracking['user_id'];
+    }
+
+    private function preserveStartTime(&$values, $oldtimetracking)
+    {
+        $hasStartTime = array_key_exists('start', $values);
+        if(!$hasStartTime)
+            return;
+        $time = strtotime($values['start']);
+        $oldtime = strtotime($oldtimetracking['start']);
+
+        $newDay = date('z', $time);
+        $oldDay = date('z', $time);
+
+        $sameDay = ($newDay === $oldDay);
+        if($sameDay)
+            $values['start'] = $oldtimetracking['start'];
     }
 
 
