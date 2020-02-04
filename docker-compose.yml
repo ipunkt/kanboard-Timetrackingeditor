@@ -1,0 +1,36 @@
+version: '3.4'
+x-xdebug-settings: &xdebug-settings
+  XDEBUG_REMOTE_CONNECT_BACK: "On"
+services:
+  kanboard:
+    image: kanboard/kanboard:latest
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/app/plugins/Timetrackingeditor
+      - ./docker/conf.d/local.ini:/etc/php7/conf.d/local.ini
+      - ./Data/config.php:/var/www/app/data/config.php
+    environment:
+      DATABASE_URL: mysql://kb:kb-secret@db/kanboard
+      <<: *xdebug-settings
+  pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8000:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: kb
+      PMA_PASSWORD: kb-secret
+  db:
+    image: mariadb:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: kanboard
+      MYSQL_USER: kb
+      MYSQL_PASSWORD: kb-secret
+  chown:
+    image: bash
+    command: bash -c 'while [ true ] ; do chown -R 10005:10003 /var/www/app/plugins/Timetrackingeditor ; sleep 5s ; done'
+    volumes:
+      - .:/var/www/app/plugins/Timetrackingeditor
