@@ -46,4 +46,3 @@ class SubtaskStatusController extends \Kanboard\Controller\SubtaskStatusControll
             ));
     }
 }
-?>
