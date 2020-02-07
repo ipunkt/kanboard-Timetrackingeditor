@@ -37,3 +37,7 @@ You can also add comments to every Time Tracking entry and select if the time is
 
 Additionally you can export all time tracking entries as an HTML table (which makes it easy to import to excel) using the command ``` kanboard export:allsubtaskstimetracking```
 
+## Local Development
+
+- update your docker-compose.yml version (and do not commit) to suit your user id and group id to fix the owner change from kanboard container
+- open the [kanboard](http://localhost/) and use the default credentials `admin` and `admin`
