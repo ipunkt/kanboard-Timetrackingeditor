@@ -9,18 +9,14 @@ class DateParser extends \Kanboard\Core\DateParser
 		return parent::convert($this->prepareTimeFormatValues($values), $fields, $keep_time);
 	}
 
-	public function __call($name, $arguments)
-	{
-		var_dump(__FILE__.__LINE__, $name, $arguments);
-	}
-
 	/**
 	 * prepares all time format fields
 	 *
 	 * @param array $values
 	 * @return array
 	 */
-	protected function prepareTimeFormatValues(array $values): array {
+	protected function prepareTimeFormatValues(array $values): array
+	{
 		$fields = ['time_spent'];
 
 		foreach ($fields as $field) {
