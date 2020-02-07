@@ -39,12 +39,12 @@ class DateParser extends \Kanboard\Core\DateParser
 		//  convert HH:mm
 		if (substr_count($value, ':') === 1) {
 			$hm = explode(':', $value, 2);
-			$value = $hm[0] + $hm[1]/60;
+			$value = $hm[0] + $hm[1] / 60;
 		}
 		//  convert HH:mm:ss
 		if (substr_count($value, ':') === 2) {
 			$hms = explode(':', $value, 3);
-			$value = $hms[0] + $hms[1]/60 + $hms[2]/3600;
+			$value = $hms[0] + $hms[1] / 60 + $hms[2] / 3600;
 		}
 
 		//  convert "," to "."
