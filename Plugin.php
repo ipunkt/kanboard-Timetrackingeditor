@@ -28,6 +28,9 @@ class Plugin extends Base
     public function getClasses()
     {
       return array(
+      	'Plugin\Timetrackingeditor' => array(
+      		'DateParser'
+        ),
         'Plugin\Timetrackingeditor\Model' => array(
             'SubtaskTimeTrackingCreationModel',
             'SubtaskTimeTrackingEditModel',
@@ -73,17 +76,17 @@ class Plugin extends Base
 
     public function getPluginAuthor()
     {
-        return 'Thomas Stinner';
+        return 'Thomas Stinner, ipunkt Business Solutions';
     }
 
     public function getPluginVersion()
     {
-        return '1.0.21';
+        return '1.1.0';
     }
 
     public function getPluginHomepage()
     {
-        return 'https://github.com/stinnux/kanboard-timetrackingeditor';
+        return 'https://github.com/ipunkt/kanboard-Timetrackingeditor';
     }
 
     public function getCompatibleVersion()
