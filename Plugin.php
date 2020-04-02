@@ -17,6 +17,7 @@ class Plugin extends Base
 
       $this->helper->register("subtaskPermission", "Kanboard\Plugin\Timetrackingeditor\Helper\SubtaskPermissionHelper");
 
+      $this->container["cli"]->add(new SubtaskTimeTrackingExportCommand($this->container));
       $this->container["cli"]->add(new AllSubtaskTimeTrackingExportCommand($this->container));
     }
 
