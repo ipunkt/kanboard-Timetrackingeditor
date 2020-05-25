@@ -44,6 +44,7 @@ class Plugin extends Base
           'SubtaskTitleFilter'
         ),
         'Plugin\Timetrackingeditor\Console' => array(
+          'SubtaskTimeTrackingExportCommand',
           'AllSubtaskTimeTrackingExportCommand'
         ),
         'Plugin\Timetrackingeditor\Controller' => array(
