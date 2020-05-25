@@ -41,7 +41,7 @@ class SubtaskTimeTrackingExport extends Base
     public function exportAll()
     {
       $subtaskstt = $this->getAllSubtasksTimeTracking();
-      $results = array($this->getFormats());
+      $results = array();
       $results[] = $this->getColumns();
 
       foreach ($subtaskstt as $subtasktt) {
@@ -122,9 +122,10 @@ class SubtaskTimeTrackingExport extends Base
         $values[] = $subtasktt['id'];
         $values[] = $subtasktt['user_id'];
         $values[] = $subtasktt['subtask_id'];
-        $values[] = $this->helper->dt->date($subtasktt['start']);
-        $values[] = $this->helper->dt->date($subtasktt['end']);
-        $values[] = str_replace(".",",",$subtasktt['time_spent']);
+        $values[] = $this->helper->dt->datetime($subtasktt['start']);
+        $values[] = $this->helper->dt->datetime($subtasktt['end']);
+        #$values[] = str_replace(".",",",$subtasktt['time_spent']);
+        $values[] = $subtasktt['time_spent'];
         $values[] = $subtasktt['is_billable'];
         $values[] = $this->helper->text->markdown($subtasktt['comment']);
         $values[] = $subtasktt['task_id'];
@@ -175,6 +176,7 @@ class SubtaskTimeTrackingExport extends Base
                             ProjectModel::TABLE.'.name AS project_name',
                             TaskModel::TABLE.'.title AS task_title',
                             TaskModel::TABLE.'.color_id',
+                            TaskModel::TABLE.'.reference as reference',
                             UserModel::TABLE.'.username',
                             UserModel::TABLE.'.name AS user_fullname'
                         )

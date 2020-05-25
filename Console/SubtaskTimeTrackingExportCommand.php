@@ -1,12 +1,13 @@
 <?php
 
-namespace Kanboard\Console;
+namespace Kanboard\Plugin\Timetrackingeditor\Console;
 
 use Kanboard\Core\Csv;
 use Kanboard\Model\SubtaskTimeTrackingModel;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Kanboard\Console\BaseCommand;
 
 class SubtaskTimeTrackingExportCommand extends BaseCommand
 {
@@ -29,7 +30,7 @@ class SubtaskTimeTrackingExportCommand extends BaseCommand
         );
 
         if (is_array($data)) {
-            Html::output($data);
+            Csv::output($data);
         }
     }
 }
