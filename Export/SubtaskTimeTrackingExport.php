@@ -122,8 +122,8 @@ class SubtaskTimeTrackingExport extends Base
         $values[] = $subtasktt['id'];
         $values[] = $subtasktt['user_id'];
         $values[] = $subtasktt['subtask_id'];
-        $values[] = $this->helper->dt->date($subtasktt['start']);
-        $values[] = $this->helper->dt->date($subtasktt['end']);
+        $values[] = $this->helper->dt->datetime($subtasktt['start']);
+        $values[] = $this->helper->dt->datetime($subtasktt['end']);
         #$values[] = str_replace(".",",",$subtasktt['time_spent']);
         $values[] = $subtasktt['time_spent'];
         $values[] = $subtasktt['is_billable'];
